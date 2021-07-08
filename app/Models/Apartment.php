@@ -9,4 +9,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Apartment extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'id',
+        'name',
+        'description',
+        'quantity',
+        'active',
+        'created_at',
+        'updated_at',
+    ];
 }

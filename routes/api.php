@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +11,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+use Illuminate\Support\Facades\Route;
+
+Route::get('health', 'HealthController@index');
+
+Route::group(['prefix' => 'apartments'], function() {
+    Route::get('', 'Apartment\ApartmentController@index');
+    Route::get('/{id}', 'Apartment\ApartmentController@show');
+    Route::post('', 'Apartment\ApartmentController@create');
+    Route::put('/{id}', 'Apartment\ApartmentController@update');
 });

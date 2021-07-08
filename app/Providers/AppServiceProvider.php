@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use Apartool\Apartment\Application\Create\ApartmentCreator;
+use Apartool\Apartment\Domain\ApartmentRepository;
+use Apartool\Apartment\Infrastructure\Persistence\EloquentApartmentRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +16,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(ApartmentRepository::class, EloquentApartmentRepository::class);
+        /*$this->app->bind(ApartmentCreator::class, function ($app) {
+            return new ApartmentCreator();
+        });*/
     }
 
     /**
