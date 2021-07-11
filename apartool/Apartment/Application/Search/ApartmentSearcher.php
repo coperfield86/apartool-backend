@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Apartool\Apartment\Application\Search;
 
-use Apartool\Apartment\Application\Dto\CreateApartmentRequestDto;
 use Apartool\Apartment\Domain\Apartment;
 use Apartool\Apartment\Domain\ApartmentRepository;
 

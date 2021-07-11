@@ -35,15 +35,6 @@ final class Apartment
         $this->createdAt   = $createdAt;
     }
 
-   /* public static function create(
-        ApartmentName $name,
-        ApartmentDescription $description,
-        ApartmentQuantity $quantity,
-        ApartmentActive $active): self
-    {
-        return new self($name, $description, $quantity, $active);
-    }*/
-
     public function toArray(): array
     {
         return [

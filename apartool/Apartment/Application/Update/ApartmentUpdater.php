@@ -28,10 +28,10 @@ final class ApartmentUpdater
                            ApartmentName $name,
                            ApartmentDescription $description,
                            ApartmentQuantity $quantity,
-                           ApartmentActive $active): void {
+                           ApartmentActive $active): bool {
         $apartmentFinded = $this->finder->invoke($id);
 
-        $this->repository->update($apartmentFinded->getId(), new Apartment(
+        return $this->repository->update($apartmentFinded->getId(), new Apartment(
             $apartmentFinded->getId(),
             $name ?? $apartmentFinded->getName(),
             $description ?? $apartmentFinded->getDescription(),

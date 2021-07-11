@@ -9,5 +9,12 @@ class ApartmentCategory extends Model
 {
     use HasFactory;
 
+    public $primaryKey = 'apartment_id';
     public $timestamps = false;
+
+    protected $fillable = [
+        'apartment_id',
+        'title',
+        'description'
+    ];
 }

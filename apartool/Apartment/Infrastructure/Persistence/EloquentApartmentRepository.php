@@ -6,6 +6,7 @@ namespace Apartool\Apartment\Infrastructure\Persistence;
 
 use Apartool\Apartment\Domain\Apartment;
 use Apartool\Apartment\Domain\ApartmentRepository;
+use Apartool\Apartment\Domain\ValueObjects\ApartmentCategoryId;
 use Apartool\Apartment\Domain\ValueObjects\ApartmentId;
 
 final class EloquentApartmentRepository implements ApartmentRepository
@@ -17,17 +18,17 @@ final class EloquentApartmentRepository implements ApartmentRepository
         $this->model = new \App\Models\Apartment();
     }
 
-    public function save(Apartment $apartment): void
+    public function save(Apartment $apartment): bool
     {
         $this->model->name          = $apartment->getName()->value();
         $this->model->description   = $apartment->getDescription()->value();
         $this->model->quantity      =  $apartment->getQuantity()->value();
         $this->model->active        =  $apartment->getActive()->value();
 
-        $this->model->save();
+        return $this->model->save();
     }
 
-    public function update(ApartmentId $id, Apartment $apartment): void
+    public function update(ApartmentId $id, Apartment $apartment): bool
     {
         $modelToUpdate = $this->model->findOrFail($id->value());
 
@@ -36,7 +37,7 @@ final class EloquentApartmentRepository implements ApartmentRepository
         $modelToUpdate->quantity      = $apartment->getQuantity()->value();
         $modelToUpdate->active        = $apartment->getActive()->value();
 
-        $modelToUpdate->update();
+        return $modelToUpdate->update();
     }
 
     public function find(ApartmentId $id): array
@@ -52,5 +53,10 @@ final class EloquentApartmentRepository implements ApartmentRepository
             return $rows->slice($startingPoint, $perPage)->values()->toArray();
         }
         return $rows->toArray();
+    }
+
+    public function delete(ApartmentId $id): boolean
+    {
+        return $this->model->findOrFail($id->value())->delete();
     }
 }

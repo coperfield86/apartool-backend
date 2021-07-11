@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Apartment;
 
 use Apartool\Apartment\Application\Create\ApartmentCreator;
-use Apartool\Apartment\Application\Dto\CreateApartmentRequestDto;
 use Apartool\Apartment\Application\Find\ApartmentFinder;
 use Apartool\Apartment\Application\Search\ApartmentSearcher;
 use Apartool\Apartment\Application\Update\ApartmentUpdater;

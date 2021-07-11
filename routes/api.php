@@ -21,3 +21,10 @@ Route::group(['prefix' => 'apartments'], function() {
     Route::post('', 'Apartment\ApartmentController@create');
     Route::put('/{id}', 'Apartment\ApartmentController@update');
 });
+
+Route::group(['prefix' => 'apartment-categories'], function() {
+    Route::get('', 'ApartmentCategory\ApartmentCategoryController@index');
+    Route::get('/{id}', 'ApartmentCategory\ApartmentCategoryController@show');
+    Route::post('', 'ApartmentCategory\ApartmentCategoryController@create');
+    Route::put('/{id}', 'ApartmentCategory\ApartmentCategoryController@update');
+});

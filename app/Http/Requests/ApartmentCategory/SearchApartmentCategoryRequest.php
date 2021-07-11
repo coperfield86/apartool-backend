@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Apartment;
+namespace App\Http\Requests\ApartmentCategory;
 
 use App\Http\Requests\FormRequest;
 
-class UpdateApartmentRequest extends FormRequest
+class SearchApartmentCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,8 @@ class UpdateApartmentRequest extends FormRequest
      */
     public function rules() {
         return [
-            'name' => 'required|string',
-            'quantity' => 'required|numeric|min:0',
-            'description' => 'required|string',
-            'active' => 'required|boolean',
+            'page' => 'numeric|min:1',
+            'per_page' => 'numeric|min:1',
         ];
     }
 

@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Apartool\Apartment\Application\Create;
 
-use Apartool\Apartment\Application\Dto\CreateApartmentRequestDto;
 use Apartool\Apartment\Domain\Apartment;
 use Apartool\Apartment\Domain\ApartmentRepository;
 use Apartool\Apartment\Domain\ValueObjects\ApartmentName;
@@ -25,24 +24,8 @@ final class ApartmentCreator
         ApartmentName $name,
         ApartmentDescription $description,
         ApartmentQuantity $quantity,
-        ApartmentActive $active) {
+        ApartmentActive $active): bool {
 
-        $this->repository->save(new Apartment(null, $name, $description, $quantity, $active, null));
-
-        /*
-         * public function searchAll(): BackofficeCoursesResponse
-    {
-        return new BackofficeCoursesResponse(...map($this->toResponse(), $this->repository->searchAll()));
-    }
-
-    private function toResponse(): callable
-    {
-        return static fn(BackofficeCourse $course) => new BackofficeCourseResponse(
-            $course->id(),
-            $course->name(),
-            $course->duration()
-        );
-    }
-         */
+        return $this->repository->save(new Apartment(null, $name, $description, $quantity, $active, null));
     }
 }
