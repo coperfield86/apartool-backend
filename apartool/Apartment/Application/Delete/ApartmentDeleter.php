@@ -18,16 +18,6 @@ final class ApartmentDeleter
     }
 
     public function invoke(ApartmentId $id): bool {
-        /*$apartmentFinded = $this->finder->invoke($id);
-
-        return $this->repository->update($apartmentFinded->getId(), new Apartment(
-            $apartmentFinded->getId(),
-            $name ?? $apartmentFinded->getName(),
-            $description ?? $apartmentFinded->getDescription(),
-            $quantity ?? $apartmentFinded->getQuantity(),
-            $active ?? $apartmentFinded->getActive(),
-            $apartmentFinded->getCreatedAt(),
-        ));*/
-        return true;
+        return $this->repository->delete($id);
     }
 }

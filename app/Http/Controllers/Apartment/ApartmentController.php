@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Apartment;
 
 use Apartool\Apartment\Application\Create\ApartmentCreator;
+use Apartool\Apartment\Application\Delete\ApartmentDeleter;
 use Apartool\Apartment\Application\Find\ApartmentFinder;
 use Apartool\Apartment\Application\Search\ApartmentSearcher;
 use Apartool\Apartment\Application\Update\ApartmentUpdater;
@@ -19,21 +20,24 @@ use Illuminate\Http\JsonResponse;
 
 class ApartmentController extends ApiController
 {
-    private ApartmentCreator $creator;
-    private ApartmentUpdater $updater;
-    private ApartmentFinder $finder;
+    private ApartmentCreator  $creator;
+    private ApartmentUpdater  $updater;
+    private ApartmentFinder   $finder;
     private ApartmentSearcher $searcher;
+    private ApartmentDeleter  $deleter;
 
     public function __construct(
         ApartmentCreator $creator,
         ApartmentUpdater $updater,
         ApartmentFinder  $finder,
-        ApartmentSearcher  $searcher
+        ApartmentSearcher  $searcher,
+        ApartmentDeleter  $deleter
     ) {
         $this->creator = $creator;
         $this->updater = $updater;
         $this->finder = $finder;
         $this->searcher = $searcher;
+        $this->deleter = $deleter;
     }
 
     public function index(SearchApartmentRequest $request): JsonResponse {
