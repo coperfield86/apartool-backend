@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Apartool\Apartment\Application\Delete;
+namespace Apartool\ApartmentCategory\Application\Delete;
 
 use Apartool\Apartment\Domain\ValueObjects\ApartmentId;
 use Apartool\ApartmentCategory\Domain\ApartmentCategoryRepository;

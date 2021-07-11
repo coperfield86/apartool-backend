@@ -55,7 +55,7 @@ final class EloquentApartmentRepository implements ApartmentRepository
         return $rows->toArray();
     }
 
-    public function delete(ApartmentId $id): boolean
+    public function delete(ApartmentId $id): bool
     {
         return $this->model->findOrFail($id->value())->delete();
     }

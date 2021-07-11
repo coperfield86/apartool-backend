@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApartmentCategory;
 
 use Apartool\Apartment\Domain\ValueObjects\ApartmentId;
 use Apartool\ApartmentCategory\Application\Create\ApartmentCategoryCreator;
+use Apartool\ApartmentCategory\Application\Delete\ApartmentCategoryDeleter;
 use Apartool\ApartmentCategory\Application\Find\ApartmentCategoryFinder;
 use Apartool\ApartmentCategory\Application\Search\ApartmentCategorySearcher;
 use Apartool\ApartmentCategory\Application\Update\ApartmentCategoryUpdater;
@@ -21,17 +22,20 @@ class ApartmentCategoryController extends ApiController
     private ApartmentCategoryUpdater $updater;
     private ApartmentCategoryFinder $finder;
     private ApartmentCategorySearcher $searcher;
+    private ApartmentCategoryDeleter $deleter;
 
     public function __construct(
-        ApartmentCategoryCreator $creator,
-        ApartmentCategoryUpdater $updater,
-        ApartmentCategoryFinder  $finder,
-        ApartmentCategorySearcher  $searcher
+        ApartmentCategoryCreator   $creator,
+        ApartmentCategoryUpdater   $updater,
+        ApartmentCategoryFinder    $finder,
+        ApartmentCategorySearcher  $searcher,
+        ApartmentCategoryDeleter   $deleter
     ) {
-        $this->creator = $creator;
-        $this->updater = $updater;
-        $this->finder = $finder;
+        $this->creator  = $creator;
+        $this->updater  = $updater;
+        $this->finder   = $finder;
         $this->searcher = $searcher;
+        $this->deleter  = $deleter;
     }
 
     public function index(SearchApartmentCategoryRequest $request): JsonResponse {
@@ -79,6 +83,13 @@ class ApartmentCategoryController extends ApiController
             $title,
             $description
         );
-        return $this->successResponse('Apartment updated successful');
+        return $this->successResponse('Apartment Category updated successful', 204);
+    }
+
+    public function delete(int $id): JsonResponse {
+        $id = new ApartmentId($id);
+
+        $this->deleter->invoke($id);
+        return $this->successResponse('Apartment Category deleted successful', 204);
     }
 }

@@ -8,6 +8,7 @@ use Apartool\Apartment\Domain\ValueObjects\ApartmentCategoryId;
 use Apartool\Apartment\Domain\ValueObjects\ApartmentId;
 use Apartool\ApartmentCategory\Domain\ApartmentCategory;
 use Apartool\ApartmentCategory\Domain\ApartmentCategoryRepository;
+use Carbon\Carbon;
 
 final class EloquentApartmentCategoryRepository implements ApartmentCategoryRepository
 {
@@ -55,6 +56,8 @@ final class EloquentApartmentCategoryRepository implements ApartmentCategoryRepo
 
     public function delete(ApartmentId $id): bool
     {
-        return $this->model->findOrFail($id->value())->delete();
+        $model = $this->model->findOrFail($id->value());
+        $model->deleted_at = Carbon::now();
+        return $model->update();
     }
 }

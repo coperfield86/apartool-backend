@@ -21,6 +21,7 @@ class CreateApartmentCategoriesTable extends Migration
                 ->on('apartments');
             $table->string('title');
             $table->string('description');
+            $table->softDeletes();
         });
     }
 

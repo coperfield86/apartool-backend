@@ -86,6 +86,13 @@ class ApartmentController extends ApiController
             $quantity,
             $active
         );
-        return $this->successResponse('Apartment updated successful');
+        return $this->successResponse('Apartment updated successful', 204);
+    }
+
+    public function delete(int $id): JsonResponse {
+        $id = new ApartmentId($id);
+
+        $this->deleter->invoke($id);
+        return $this->successResponse('Apartment deleted successful', 204);
     }
 }

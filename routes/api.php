@@ -20,6 +20,7 @@ Route::group(['prefix' => 'apartments'], function() {
     Route::get('/{id}', 'Apartment\ApartmentController@show');
     Route::post('', 'Apartment\ApartmentController@create');
     Route::put('/{id}', 'Apartment\ApartmentController@update');
+    Route::delete('/{id}', 'Apartment\ApartmentController@delete');
 });
 
 Route::group(['prefix' => 'apartment-categories'], function() {
@@ -27,4 +28,5 @@ Route::group(['prefix' => 'apartment-categories'], function() {
     Route::get('/{id}', 'ApartmentCategory\ApartmentCategoryController@show');
     Route::post('', 'ApartmentCategory\ApartmentCategoryController@create');
     Route::put('/{id}', 'ApartmentCategory\ApartmentCategoryController@update');
+    Route::delete('/{id}', 'ApartmentCategory\ApartmentCategoryController@delete');
 });
