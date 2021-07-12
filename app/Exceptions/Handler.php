@@ -63,7 +63,7 @@ class Handler extends ExceptionHandler
         });
 
         $this->renderable(function(QueryException $exception, $request) {
-            return $this->errorResponse($exception->getMessage(), 409);
+            return $this->errorResponse('Error in database', 409);
         });
 
         $this->renderable(function(\Exception $exception, $request) {

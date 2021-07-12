@@ -6,14 +6,15 @@ namespace Apartool\Apartment\Application\Create;
 
 use Apartool\Apartment\Domain\Apartment;
 use Apartool\Apartment\Domain\ApartmentRepository;
-use Apartool\Apartment\Domain\ValueObjects\ApartmentName;
 use Apartool\Apartment\Domain\ValueObjects\ApartmentActive;
 use Apartool\Apartment\Domain\ValueObjects\ApartmentDescription;
+use Apartool\Apartment\Domain\ValueObjects\ApartmentId;
+use Apartool\Apartment\Domain\ValueObjects\ApartmentName;
 use Apartool\Apartment\Domain\ValueObjects\ApartmentQuantity;
 
 final class ApartmentCreator
 {
-    private $repository;
+    private ApartmentRepository $repository;
 
     public function __construct(ApartmentRepository $repository)
     {
@@ -24,8 +25,9 @@ final class ApartmentCreator
         ApartmentName $name,
         ApartmentDescription $description,
         ApartmentQuantity $quantity,
-        ApartmentActive $active): bool {
+        ApartmentActive $active): ApartmentId {
 
-        return $this->repository->save(new Apartment(null, $name, $description, $quantity, $active, null));
+        $id = $this->repository->save(new Apartment(null, $name, $description, $quantity, $active, null));
+        return new ApartmentId($id);
     }
 }

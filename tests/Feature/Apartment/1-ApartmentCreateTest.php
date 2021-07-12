@@ -12,11 +12,12 @@ class ApartmentCreateTest extends TestCase
      *
      * @return void
      */
-    public function test_create_apartment()
+    public function test_create_apartment(): int
     {
-        $apartment = Apartment::factory()->create();
+        $apartment = Apartment::factory()->definition();
 
-        $response = $this->postJson('/apartments',$apartment->toArray());
+        $response = $this->postJson('/apartments',$apartment);
         $response->assertStatus(201);
+        return $response['id'];
     }
 }

@@ -18,14 +18,15 @@ final class EloquentApartmentRepository implements ApartmentRepository
         $this->model = new \App\Models\Apartment();
     }
 
-    public function save(Apartment $apartment): bool
+    public function save(Apartment $apartment): int
     {
         $this->model->name          = $apartment->getName()->value();
         $this->model->description   = $apartment->getDescription()->value();
         $this->model->quantity      =  $apartment->getQuantity()->value();
         $this->model->active        =  $apartment->getActive()->value();
 
-        return $this->model->save();
+        $this->model->save();
+        return $this->model->id;
     }
 
     public function update(ApartmentId $id, Apartment $apartment): bool

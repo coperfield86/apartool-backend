@@ -62,8 +62,11 @@ class ApartmentCategoryController extends ApiController
         $title        = new ApartmentCategoryTitle($apartmentCategoryTitle);
         $description  = new ApartmentCategoryDescription($apartmentCategoryDescription);
 
-        $this->creator->invoke($apartmentId, $title, $description);
-        return $this->successResponse('Apartment Category created successful', 201);
+        $response = $this->creator->invoke($apartmentId, $title, $description);
+        if ($response) {
+            return $this->successResponse('Apartment category created successfully', 201);
+        }
+        return $this->errorResponse('Error saved Apartment category');
     }
 
     public function update(int $id, UpdateApartmentCategoryRequest $request): JsonResponse  {
@@ -83,13 +86,13 @@ class ApartmentCategoryController extends ApiController
             $title,
             $description
         );
-        return $this->successResponse('Apartment Category updated successful', 204);
+        return $this->successResponse('Apartment Category updated successfully', 204);
     }
 
     public function delete(int $id): JsonResponse {
         $id = new ApartmentId($id);
 
         $this->deleter->invoke($id);
-        return $this->successResponse('Apartment Category deleted successful', 204);
+        return $this->successResponse('Apartment Category deleted successfully', 204);
     }
 }

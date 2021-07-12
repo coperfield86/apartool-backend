@@ -5,7 +5,7 @@ namespace Tests\Unit\Apartment;
 use Tests\Apartool\Apartment\ApartmentUnitTestCase;
 use Tests\Apartool\Apartment\Domain\ValueObjects\ApartmentIdMother;
 
-class ApartmentUpdateTest extends ApartmentUnitTestCase
+class ApartmentDeleteTest extends ApartmentUnitTestCase
 {
     protected function setUp(): void
     {
@@ -18,9 +18,9 @@ class ApartmentUpdateTest extends ApartmentUnitTestCase
         \Mockery::close();
     }
 
-    public function test_it_should_update_an_apartment(): void
+    public function test_it_should_delete_an_apartment(): void
     {
-        $this->shouldFind(ApartmentIdMother::random());
-        $this->shouldUpdate();
+        $this->shouldDelete(ApartmentIdMother::random());
+
     }
 }

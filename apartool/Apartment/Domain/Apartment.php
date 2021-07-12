@@ -38,12 +38,12 @@ final class Apartment
     public function toArray(): array
     {
         return [
-            'id'          => $this->id->value(),
+            'id'          => $this->id?->value(),
             'name'        => $this->name->value(),
             'description' => $this->description->value(),
             'quantity'    => $this->quantity->value(),
             'active'      => $this->active->value(),
-            'createdAt'   => $this->createdAt->value(),
+            'createdAt'   => $this->createdAt?->value(),
         ];
     }
 

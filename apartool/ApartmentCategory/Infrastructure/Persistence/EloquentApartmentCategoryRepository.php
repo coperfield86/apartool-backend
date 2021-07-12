@@ -19,13 +19,13 @@ final class EloquentApartmentCategoryRepository implements ApartmentCategoryRepo
         $this->model = new \App\Models\ApartmentCategory();
     }
 
-    public function save(ApartmentCategory $apartment): void
+    public function save(ApartmentCategory $apartment): bool
     {
         $this->model->apartment_id   = $apartment->getApartmentId()->value();
         $this->model->title         = $apartment->getTitle()->value();
         $this->model->description   = $apartment->getDescription()->value();
 
-        $this->model->save();
+        return $this->model->save();
     }
 
     public function update(ApartmentId $id, ApartmentCategory $apartmentCategory): void

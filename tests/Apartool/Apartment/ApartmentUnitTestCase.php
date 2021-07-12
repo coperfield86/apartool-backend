@@ -5,16 +5,22 @@ declare(strict_types = 1);
 namespace Tests\Apartool\Apartment;
 
 use Apartool\Apartment\Application\Create\ApartmentCreator;
+use Apartool\Apartment\Application\Delete\ApartmentDeleter;
 use Apartool\Apartment\Application\Find\ApartmentFinder;
 use Apartool\Apartment\Application\Update\ApartmentUpdater;
-use Apartool\Apartment\Domain\Apartment;
 use Apartool\Apartment\Domain\ApartmentRepository;
 use Apartool\Apartment\Domain\ValueObjects\ApartmentActive;
 use Apartool\Apartment\Domain\ValueObjects\ApartmentDescription;
 use Apartool\Apartment\Domain\ValueObjects\ApartmentId;
 use Apartool\Apartment\Domain\ValueObjects\ApartmentName;
 use Apartool\Apartment\Domain\ValueObjects\ApartmentQuantity;
+use Carbon\Carbon;
 use Mockery\MockInterface;
+use Tests\Apartool\Apartment\Domain\ValueObjects\ApartmentActiveMother;
+use Tests\Apartool\Apartment\Domain\ValueObjects\ApartmentDescriptionMother;
+use Tests\Apartool\Apartment\Domain\ValueObjects\ApartmentIdMother;
+use Tests\Apartool\Apartment\Domain\ValueObjects\ApartmentNameMother;
+use Tests\Apartool\Apartment\Domain\ValueObjects\ApartmentQuantityMother;
 use Tests\TestCase;
 
 abstract class ApartmentUnitTestCase extends TestCase
@@ -37,36 +43,54 @@ abstract class ApartmentUnitTestCase extends TestCase
         );
     }
 
-    /*protected function shouldUpdate(ApartmentId $id,
-                                    ApartmentName $name,
-                                    ApartmentDescription $description,
-                                    ApartmentQuantity $quantity,
-                                    ApartmentActive $active) {
+    protected function shouldUpdate() {
         $mock = $this->repository();
         $mock->shouldReceive('update')
             ->once()
             ->andReturnTrue();
-        $updater= new ApartmentUpdater($mock);
+        $finder = $this->finderRepository();
+        $updater= new ApartmentUpdater($finder, $mock);
         $updater->invoke(
-            $id,
-            $name,
-            $description,
-            $quantity,
-            $active
+            ApartmentIdMother::random(),
+            ApartmentNameMother::random(),
+            ApartmentDescriptionMother::random(),
+            ApartmentQuantityMother::random(),
+            ApartmentActiveMother::random()
         );
-    }*/
+    }
 
-    protected function shouldSearch(ApartmentId $id) {
-        $mock = $this->repository();
-        $mock->shouldReceive('find')
-            ->once()
-            ->andReturn(array());
-        $finder = new ApartmentFinder($mock);
+    protected function shouldFind(ApartmentId $id) {
+        $finder = $this->finderRepository();
         $finder->invoke($id);
+    }
+
+    protected function shouldDelete(ApartmentId $id) {
+        $mock = $this->repository();
+        $mock->shouldReceive('delete')
+            ->once()
+            ->andReturnTrue();
+        $deleter = new ApartmentDeleter($mock);
+        $deleter->invoke($id);
     }
 
     protected function repository(): MockInterface
     {
         return $this->mock(ApartmentRepository::class);
+    }
+
+    private function finderRepository() {
+        $mock = $this->repository();
+        $databaseRow = [
+            'id' => 1,
+            'name' => 'Aparment',
+            'description' => 'Aparment',
+            'quantity' =>  5,
+            'active' => 1,
+            'created_at' => Carbon::now()->toString(),
+        ];
+        $mock->shouldReceive('find')
+            ->once()
+            ->andReturn($databaseRow);
+        return new ApartmentFinder($mock);
     }
 }

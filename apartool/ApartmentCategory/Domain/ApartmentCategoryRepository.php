@@ -7,7 +7,7 @@ use Apartool\ApartmentCategory\Domain\ValueObjects\ApartmentCategoryId;
 
 interface ApartmentCategoryRepository {
 
-    public function save(ApartmentCategory $apartmentCategory): void;
+    public function save(ApartmentCategory $apartmentCategory): bool;
 
     public function update(ApartmentId $id, ApartmentCategory $apartmentCategory): void;
 

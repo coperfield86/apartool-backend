@@ -27,6 +27,7 @@ class ApartmentController extends ApiController
     private ApartmentDeleter  $deleter;
 
     public function __construct(
+
         ApartmentCreator $creator,
         ApartmentUpdater $updater,
         ApartmentFinder  $finder,
@@ -66,8 +67,8 @@ class ApartmentController extends ApiController
         $quantity    = new ApartmentQuantity($apartmentQuantity);
         $active      = new ApartmentActive($apartmentActive);
 
-        $this->creator->invoke($name, $description, $quantity, $active);
-        return $this->successResponse('Apartment created successful', 201);
+        $apartmentId = $this->creator->invoke($name, $description, $quantity, $active);
+        return $this->successResponse($apartmentId->toArray(), 201);
     }
 
     public function update(int $id, UpdateApartmentRequest $request): JsonResponse  {
@@ -90,13 +91,13 @@ class ApartmentController extends ApiController
             $quantity,
             $active
         );
-        return $this->successResponse('Apartment updated successful', 204);
+        return $this->successResponse('Apartment updated successfully', 204);
     }
 
     public function delete(int $id): JsonResponse {
         $id = new ApartmentId($id);
 
         $this->deleter->invoke($id);
-        return $this->successResponse('Apartment deleted successful', 204);
+        return $this->successResponse('Apartment deleted successfully', 204);
     }
 }

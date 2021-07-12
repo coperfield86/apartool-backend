@@ -18,8 +18,9 @@ class ApartmentFindTest extends ApartmentUnitTestCase
         \Mockery::close();
     }
 
-    public function test_it_should_search_a_apartment(): void
+    public function test_it_should_search_an_apartment(): void
     {
-        $this->shouldSearch(ApartmentIdMother::random());
+        $this->shouldFind(ApartmentIdMother::random());
+
     }
 }

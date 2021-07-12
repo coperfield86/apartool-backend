@@ -8,7 +8,7 @@ use Apartool\Apartment\Domain\ValueObjects\ApartmentId;
 
 interface ApartmentRepository {
 
-    public function save(Apartment $apartment): bool;
+    public function save(Apartment $apartment): int;
 
     public function update(ApartmentId $id, Apartment $apartment): bool;
 

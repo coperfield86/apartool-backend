@@ -26,5 +26,9 @@ namespace Apartool\Apartment\Domain\ValueObjects;
          return $id;
      }
 
-
+     public function toArray() {
+         return [
+             'id' => $this->value
+         ];
+     }
 }
